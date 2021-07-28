@@ -19,6 +19,14 @@ const App = () => {
     setCountries(filtered);
   };
 
+  const handleShow = (name) => {
+    setCountries(
+      countries.filter((country) => {
+        return country.name.toLowerCase().includes(name.toLowerCase());
+      })
+    );
+  };
+
   const showCountries = () => {
     if (countries.length === 1) {
       return (
@@ -35,7 +43,12 @@ const App = () => {
       );
     } else if (countries.length <= 10 && countries.length > 1) {
       return countries.map((country) => {
-        return <h3 key={country.alpha3Code}>{country.name}</h3>;
+        return (
+          <div key={country.alpha3Code}>
+            <h3>{country.name}</h3>
+            <button onClick={() => handleShow(country.name)}>Show</button>
+          </div>
+        );
       });
     } else {
       return <h2>Too many matches. Be more specific.</h2>;
